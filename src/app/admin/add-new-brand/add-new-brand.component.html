@@ -1,0 +1,132 @@
+<!-- Page Conttent -->
+<main class="page-content" *ngIf="brands">
+  <!-- Shop Page Area -->
+  <div class="shop-page-area ptb-30">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 order-1 order-lg-2">
+          <div class="shop-page-products mt-30">
+            <div class="row no-gutters">
+              <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let brand of brands">
+                <article class="hoproduct">
+                  <div class="hoproduct-image">
+                    <a class="hoproduct-thumb">
+                      <img style="max-height: 150px;" class="hoproduct-frontimage" src={{brand.logo}}
+                        alt="product image"  loading="lazy">
+                    </a>
+                    <ul class="hoproduct-actionbox">
+                      <li><a data-target="#exampleModalCenter" data-toggle="modal" (click)="updateConfirmed(brand)"><i
+                            class="lnr lnr-pencil"></i></a></li>
+                      <li><a (click)="delete(brand)" data-target="#deleteModal" data-toggle="modal"><i
+                            class="lnr lnr-trash"></i></a></li>
+                    </ul>
+                  </div>
+                  <div class="hoproduct-content">
+                    <h5 class="hoproduct-title"><a>{{brand.name}}</a></h5>
+                  </div>
+
+                </article>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+<!--// Page Conttent -->
+
+<div class=" d-flex justify-content-center">
+  <a class="ho-button ho-button-white" data-target="#exampleModalCenter" data-toggle="modal">
+    <i class="lnr lnr-cloud-upload" style="padding: 5px;"></i>
+    <span>Добавить Новый Бренд</span>
+  </a>
+</div>
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Добавить Новый Бренд</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <img alt="hero image" src="{{brand.logo ? brand.logo : '/assets/images/brandlogo/brand-logo-1.jpg'}}"  loading="lazy">
+          <div *ngIf="!brand.logo" class="control has-icons-left" style="padding-top: 1rem;">
+            <input (change)="uploadFile($event, 'questionImgUrl')" accept=".png,.jpg,.jpeg,.svg" class="input"
+              name="questionImgUrl" placeholder="Выберите картинку" type="file">
+            <span class="icon is-small is-left">
+              <i class="fas fa-image"></i>
+            </span>
+          </div>
+          <button *ngIf="brand.logo" (click)="resetImgUrl()" class="ho-button ho-button-white" style="padding:1rem;">
+            Удалить картинку<i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <input [(ngModel)]="brand.name" aria-describedby="inputGroup-sizing-sm" aria-label="Small"
+            class="form-control" placeholder="Название бренда" type="text">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <input [(ngModel)]="brand.websiteUrl" aria-describedby="inputGroup-sizing-sm" aria-label="Small"
+            class="form-control" placeholder="Адресс/Link" type="text">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div style="display: flex;">
+            <input [(ngModel)]="seria" aria-describedby="inputGroup-sizing-sm" aria-label="Small" class="form-control"
+              placeholder="Series" type="text">
+            <button (click)="addSeries()" class="ho-button ho-button" type="button">Добавить</button>
+          </div>
+          <br>
+          <div class="series">
+            <span (click)="deleteFromSeries(brand.series, seri)" *ngFor="let seri of brand.series">
+              <h4>{{seri}}</h4>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button" data-dismiss="modal" type="button"(click)="cancel()">Отмена</button>
+          <button *ngIf="!openEditModal" data-dismiss="modal"  class="btn ho-button" style="margin-left: 1rem;" type= "submit" (click)="createNewBrand()" [disabled]="!isCompleted">
+            <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0;"></i>
+            <span>Добавить</span>
+          </button>
+          <button *ngIf="openEditModal" data-dismiss="modal" class="btn ho-button" style="margin-left: 1rem;" type= "submit" (click)="updateBrand()" [disabled]="!isCompleted">
+            <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0;"></i>
+            <span>Редактировать</span>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal For Deleting-->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="deleteModal" role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Подтвердите удаление бренда.</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>При нажатии на кнопку <b>"Удалить"</b> вы без возвратно удалите эту бренд. Если вы не уверены нажмите на кнопку
+          "Отмена".</p>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="deleteConfirm()" data-dismiss="modal" class="ho-button ho-button-white"
+          type="button">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

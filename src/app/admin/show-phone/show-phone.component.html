@@ -1,0 +1,125 @@
+<!-- Page Conttent -->
+<main class="page-content">
+  <!-- Shop Page Area -->
+  <div class="shop-page-area bg-white ptb-30">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 order-1 order-lg-2">
+          <div class="shop-filters mt-30">
+            <div class="shop-filters-viewmode">
+              <button class="is-active" data-view="grid"><i class="ion ion-ios-keypad"></i></button>
+              <!-- <button data-view="list"><i class="ion ion-ios-list"></i></button> -->
+            </div>
+            <span class="shop-filters-viewitemcount">{{defaultPhones?.length}} телефон(ов)</span>
+            <div class="shop-filters-sortby">
+              <b>Марка:</b>
+              <div class="select-sortby">
+                <select id='one' class="selectpickerBrand" (change)="filterByBrand($event.target.value)">
+                  <option value="all">All</option>
+                  <option [value]="brand._id" *ngFor="let brand of brands">{{brand.name}}
+                  </option>
+                </select>
+              </div>
+              <b>Серии:</b>
+              <div class="select-sortby">
+                <select disabled id="two" class="selectpickerSeries" [(ngModel)] = "series">
+                  <option >All</option>
+                  <option *ngFor="let seri of brandSeries">{{seri}}
+                  </option>
+                </select>
+              </div>
+              <!-- [disabled]="!isCompleted" -->
+              <button (click)="getByBrandId()" class="btn ho-button" style="margin-left: 1rem;" type= "submit" >
+                <span>Найти</span>
+              </button>
+            </div>
+          </div>
+          <div class="shop-page-products mt-30">
+            <div class="row no-gutters">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-12" *ngFor="let phone of defaultPhones">
+                <!-- Single Product -->
+                <article class="hoproduct" >
+                  <div class="hoproduct-image">
+                    <a class="hoproduct-thumb">
+                      <img class="hoproduct-frontimage" src={{phone?.images[1]}} alt="product image"  loading="lazy">
+                    </a>
+                    <ul class="hoproduct-actionbox">
+                      <li><a (click)="addPhonetoShop(phone._id)"><i class="lnr lnr-plus-circle"></i></a></li>
+                      <li><a routerLink="/admin/route/update-default-phone/{{phone._id}}"><i class="lnr lnr-pencil"></i></a>
+                      </li>
+                      <li><a  data-target="#deleteModal" data-toggle="modal" (click)="deleteDefaultPhone(phone)"><i class="lnr lnr-trash"></i></a></li>
+                    </ul>
+
+                  </div>
+                  <div class="hoproduct-content">
+                    <h5 class="hoproduct-title"><a href="product-details.html">{{phone.brandId?.name}} {{phone?.series}} {{phone?.model}}</a></h5>
+                    <p class="hoproduct-content-description">{{phone?.description}}</p>
+                  </div>
+                </article>
+                <!--// Single Product -->
+              </div>
+              <div *ngIf="defaultPhones.length <=0"  class="col-lg-12 order-1 order-lg-2">
+                <div class="row h-100 align-items-center">
+                  <div class="col-sm-12 d-flex justify-content-center">
+                      <span>Пусто</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="row h-100 align-items-center">
+                  <div class="col-sm-12 d-flex justify-content-center">
+                    <a class="ho-button ho-button-white" routerLink="/admin/route/add-new">
+                      <i class="lnr lnr-plus-circle" style="padding: 5px;"></i>
+                      <span>Добавить новый</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="cr-pagination pt-30">
+            <p>Showing 1-12 of 13 item(s)</p>
+            <ul>
+              <li><a href="shop-rightsidebar.html"><i class="ion ion-ios-arrow-back"></i>
+                  Previous</a></li>
+              <li class="active"><a href="shop-rightsidebar.html">1</a></li>
+              <li><a href="shop-rightsidebar.html">2</a></li>
+              <li><a href="shop-rightsidebar.html">Next <i class="ion ion-ios-arrow-forward"></i></a></li>
+            </ul>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--// Shop Page Area -->
+
+</main>
+<!--// Page Conttent -->
+
+<!-- Modal For Deleting-->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="deleteModal" role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Подтвердите удаление телефона</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>При нажатии на кнопку <b>"Удалить"</b> вы без возвратно удалите эту телефон. Если вы не уверены нажмите на кнопку
+          "Отмена".</p>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="deleteConfirm()" data-dismiss="modal" class="ho-button ho-button-white"
+          type="button">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

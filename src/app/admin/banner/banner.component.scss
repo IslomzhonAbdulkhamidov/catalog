@@ -1,0 +1,40 @@
+#carousel-example {
+  max-width: 1100px;
+}
+
+.carousel .carousel-caption {
+  background: #222;
+  opacity: 0.75;
+  border-radius: 5px;
+}
+
+.carousel .carousel-caption p {
+  opacity: 1 !important;
+  z-index: 20;
+}
+
+a.carousel-control:hover {
+  cursor: pointer;
+}
+
+.herobanner-content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateZ(0);
+  transform: translateY(-50%) translateZ(0);
+  padding: 15px 45px;
+  max-width: 500px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+@media (min-width: 576px){
+  .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+  }
+}
+
+h4{
+  padding-left: 10px;
+}

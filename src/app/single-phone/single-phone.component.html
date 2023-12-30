@@ -1,0 +1,252 @@
+<!-- Page Conttent -->
+<div class="sk-circle" *ngIf="!dfPhone">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+<main class="page-content" *ngIf="dfPhone">
+  <!-- Product Details Area -->
+  <div class="product-details-area bg-white ptb-30">
+    <div class="container">
+      <div class="pdetails">
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="pdetails-images">
+              <div class="pdetails-largeimages pdetails-imagezoom">
+                <div class="pdetails-singleimage"
+                  *ngFor="let image of dfPhone?.images"
+                  [attr.data-src]="image">
+                  <img src="{{ image }}" />
+                </div>
+              </div>
+              <div class="pdetails-thumbs">
+                <div
+                  class="pdetails-singlethumb"
+                  *ngFor="let image of dfPhone?.images">
+                  <img src="{{ image }}" alt="product thumb" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="pdetails-content">
+              <h3>
+                {{dfPhone?.brandId?.name+" "+dfPhone?.series+" "+dfPhone?.model+' '+ memory}} Гб
+              </h3>
+              <div class="memory">
+                <p class="title">Объем встроенной памяти</p>
+                  <div class="memory-btn" *ngFor="let memory of dfPhone?.memories">
+                      <button
+                      (click)="selectedMemory = memory; getFilteredPrices()"
+                      [ngClass]="{'active': memoryCorrect(priceFilter.memory, memory),'button_disabled': !memory.isExists}"> {{memory?.ramStorage}} <b>/</b> {{ memory?.memoryStorage }} Гб</button>
+                  </div>
+              </div>
+              <div class="pdetails-color" *ngIf="dfPhone?.colors.length > 0">
+                <span class="content1">Цвета : {{priceFilter?.colorName}}</span>
+                  <div class="single-input">
+                      <button class="square"
+                        *ngFor="let color of dfPhone?.colors"
+                        (click)="selectedColor = color?.hex; priceFilter.colorName = color?.name; getFilteredPrices()"
+                        [style.background-color]="color.hex"
+                        [ngClass]="{'active': iscorrect(priceFilter?.color, color?.hex),'button_disabled': !color.isExists}"></button>
+                        <button class="pdetails-color__all" 
+                        title="Все цвета"
+                        (click)="selectedColor = ''; priceFilter.colorName = 'Все цветa'; getFilteredPrices()"
+                        [ngClass]="{'active': iscorrect(priceFilter?.color, '')}">все</button>
+                    </div>
+              </div>
+
+              <div class="little-info d-none-md">
+                <p><span class="minitext">Экран: </span><span class="bigtext">{{ dfPhone?.screen }}</span></p>
+                <p><span class="minitext">Видео: </span><span class="bigtext">{{ dfPhone?.video }}</span></p>
+                <p><span class="minitext">Фотокамера:  </span><span class="bigtext">{{ dfPhone?.camera }}</span></p>
+                <p><span class="minitext">Процессор: </span><span class="bigtext">{{ dfPhone?.cpu }}</span></p>
+                <p><span class="minitext">Емкость батареи: </span><span class="bigtext">{{ dfPhone?.batary }}</span></p>
+                <p><span class="minitext">Вес: </span><span class="bigtext">{{ dfPhone?.weight }}</span></p>
+              </div>
+              <share-buttons class="d-none-md" [theme]="'circles-dark'"
+                  [include]="['whatsapp', 'telegram','facebook','twitter','vk','email','copy']"
+                  [show]="9"
+                  [size]="-4"
+                  [title] = "'some text'"
+                  url= {{currentRoute}}
+                  image = {{dfPhone?.images[0]}}
+                  [autoSetMeta]="false">
+              </share-buttons>
+            </div>
+          </div>
+
+          <div class="col-lg-3 model-hot-prices-td" *ngIf="phonePriceInShops">
+            <div class="sk-circle" *ngIf="priceGetSpinner">
+              <div class="sk-circle1 sk-child"></div>
+              <div class="sk-circle2 sk-child"></div>
+              <div class="sk-circle3 sk-child"></div>
+              <div class="sk-circle4 sk-child"></div>
+              <div class="sk-circle5 sk-child"></div>
+              <div class="sk-circle6 sk-child"></div>
+              <div class="sk-circle7 sk-child"></div>
+              <div class="sk-circle8 sk-child"></div>
+              <div class="sk-circle9 sk-child"></div>
+              <div class="sk-circle10 sk-child"></div>
+              <div class="sk-circle11 sk-child"></div>
+              <div class="sk-circle12 sk-child"></div>
+            </div>
+            <span class="text-centered" *ngIf="!phonePriceInShops || phonePriceInShops.length ===0">Ничего не найдено</span>
+            <div class="model-price-range" *ngIf="phonePriceInShops.length >0 && !priceGetSpinner">
+              от
+              <a><span>{{ phonePriceMin?.price }}</span></a>
+              до
+              <a><span>{{ phonePriceMax?.price }}</span></a>
+              c.
+            </div>
+            <table width="100%" class="model-hot-prices"  *ngIf="phonePriceInShops.length >0 && !priceGetSpinner">
+              <tbody>
+                <tr *ngFor="let shopPrice of phonePriceInShops">
+                  <a (click)="routeToShop(shopPrice.shop?._id)">
+                    <td class="model-shop-name">
+                      <span class="shop-name">{{ shopPrice.shop?.name }}
+                        <span class="shop-city">({{ shopPrice?.localStorage }}GB)--> </span></span>
+                    </td>
+                  </a>
+                  <td class="model-shop-price">{{ shopPrice?.price }} c.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-12" style="padding-left: 0 !important; padding-right: 0 !important;">
+            <app-banner></app-banner>
+            <div class="col-lg-4 d-on-md" style="padding-left: 0 !important; padding-right: 0 !important;">
+              <share-buttons class="m-5p" [theme]="'circles-dark'"
+              [include]="['whatsapp', 'telegram','facebook','twitter','vk','email', 'copy']"
+              [show]="9"
+              [size]="-3"
+              [title] = "'some text'"
+              url= {{currentRoute}}
+              image = {{dfPhone?.images[0]}}
+              [autoSetMeta]="false">
+              </share-buttons>
+              <div class="little-info m-5p">
+                <p><span class="minitext">Экран: </span><span class="bigtext">{{ dfPhone?.screen }}</span></p>
+                <p><span class="minitext">Видео: </span><span class="bigtext">{{ dfPhone?.video }}</span></p>
+                <p><span class="minitext">Фотокамера:  </span><span class="bigtext">{{ dfPhone?.camera }}</span></p>
+                <p><span class="minitext">Процессор: </span><span class="bigtext">{{ dfPhone?.cpu }}</span></p>
+                <p><span class="minitext">Емкость батареи: </span><span class="bigtext">{{ dfPhone?.batary }}</span></p>
+                <p><span class="minitext">Вес: </span><span class="bigtext">{{ dfPhone?.weight }}</span></p>
+              </div>
+            </div>
+            <app-random-phones></app-random-phones>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdetails-allinfo ">
+        <ul
+          class="nav pdetails-allinfotab justify-content-center"
+          id="product-details"
+          role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="product-details-area1-tab"
+              data-toggle="tab"
+              href="#product-details-area1"
+              role="tab"
+              aria-controls="product-details-area1"
+              aria-selected="true">Характеристика</a>
+          </li>
+          <li class="nav-item" *ngIf="dfPhone?.description">
+            <a
+              class="nav-link"
+              id="product-details-area2-tab"
+              data-toggle="tab"
+              href="#product-details-area2"
+              role="tab"
+              aria-controls="product-details-area2"
+              aria-selected="false">Инфо</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="product-details-ontent">
+          <div
+            class="tab-pane fade show active"
+            id="product-details-area1"
+            role="tabpanel"
+            aria-labelledby="product-details-area1-tab">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td colspan="2"><strong>Общее</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="size">Производитель</td>
+                  <td>
+                    {{ dfPhone?.brandId?.name }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Серия</td>
+                  <td>{{ dfPhone?.series }}</td>
+                </tr>
+                <tr>
+                  <td>Модель</td>
+                  <td>{{ dfPhone?.model }}</td>
+                </tr>
+                <tr>
+                  <td>Год выпуска</td>
+                  <td>{{ dfPhone?.producedDate }}</td>
+                </tr>
+                <tr>
+                  <td>Операционная система</td>
+                  <td>{{ dfPhone?.operatingSystem }}</td>
+                </tr>
+                <tr>
+                  <td>Процессор</td>
+                  <td>{{ dfPhone?.cpu }}</td>
+                </tr>
+                <tr>
+                  <td>Экран</td>
+                  <td>{{ dfPhone?.screen }}</td>
+                </tr>
+                <tr>
+                  <td>Камера</td>
+                  <td>{{ dfPhone?.camera }}</td>
+                </tr>
+                <tr>
+                  <td>Тип аккумулятора</td>
+                  <td>{{ dfPhone?.batary }}</td>
+                </tr>
+                <!-- <tr>
+                  <td>Симкарта:</td>
+                  <td>{{ dfPhone?.sims[0] }}</td>
+                </tr> -->
+                <tr>
+                  <td>Вес</td>
+                  <td>{{ dfPhone?.weight }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="dfPhone?.description" class="tab-pane fade" id="product-details-area2" role="tabpanel" aria-labelledby="product-details-area2-tab">
+            <div class="row" [innerHTML]="dfPhone?.description">
+              <!-- <div class="col-11 col-lg-11"  class="pdetails-moreinfo">
+                <div [innerHTML]="dfPhone?.description" style="padding: 5px;" ></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--// Product Details Area -->
+</main>

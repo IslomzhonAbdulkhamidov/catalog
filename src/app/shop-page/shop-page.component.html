@@ -1,0 +1,176 @@
+    <!-- Page Conttent -->
+    <main class="page-content">
+
+      <!-- Shop Page Area -->
+      <div class="shop-page-area bg-white ptb-30">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-12 order-1 order-lg-2">
+                      <div class="banner-area">
+                        <section *ngIf="shop" class="section about-section gray-bg" id="about">
+                          <div class="container">
+                            <div class="row h-100 justify-content-center">
+                              <div class="col-lg-2 col-md-3 col-6 my-auto  col-sm-4 ">
+                                <div class="about-avatar card card-block">
+                                  <img alt="" class="img-shop" src="{{ shop?.logo }}" >
+                                </div>
+                              </div>
+                              <div class="col-lg-9 col-12 col-sm-8">
+                                <div class="about-text go-to">
+                                  <div class="footer-widget widget-info">
+                                    <h3 class="footer-widget-title">{{shop.name}}</h3>
+                                    <ul>
+                                      <li *ngIf="shop.contact"><i class="ion ion-ios-call"></i>Телефон :<a href="{{'tel:'+shop.contact}}">{{shop.contact}}</a></li>
+                                      <li *ngIf="shop.address"><i class="ion ion-ios-pin"></i>  Адрес : {{shop?.address}}</li>
+                                      <li *ngIf="shop.websiteUrl"><i class="ion ion-ios-mail"></i>Сайт : <a [href]="shop.websiteUrl" target="_blank">{{shop.websiteUrl}}</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <section class="accordion" *ngIf="shop?.littleInfo">
+                              <input type="checkbox" name="collapse2" id="handle2">
+                              <h2 class="handle">
+                                <label for="handle2" class="handle1">Подробная информация</label>
+                              </h2>
+                              <div class="content">
+                                <div [innerHTML]="shop?.littleInfo"></div>
+                                <h2 class="handle">
+                                  <label for="handle2">Скрыть</label>
+                                </h2>
+                              </div>
+                            </section>
+                          </div>
+                        </section>
+                      </div>
+
+                      <div class="shop-filters mt-30">
+                        <div class="shop-filters-viewmode">
+                          <button [ngClass]="{'is-active': config.view =='grid'}" data-view="grid"><i class="ion ion-ios-keypad"></i></button>
+                          <button [ngClass]="{'is-active': config.view =='list'}" data-view="list"><i class="ion ion-ios-list"></i></button>
+                        </div>
+                          <span class="shop-filters-viewitemcount">Есть {{shopPhones.length}} товар(ов)</span>
+                        <div class="shop-filters-sort">
+                          <select class="form-select shop-filters-sort__select" aria-label="select"  (change)="filterProducts($event.target.value)">
+                            <option selected value ='popular'>по популярности</option>
+                            <option value="low-high">от дешевых к дорогим</option>
+                            <option value="high-low">от дорогих к дешевым</option>
+                            <option value="created-date">по дате добавления</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <app-loading-spinner *ngIf="spinner"></app-loading-spinner>
+                      <div class="shop-page-products mt-30" [ngClass]="{'grid-view-active': config.view =='grid','list-view-active': config.view =='list' }" *ngIf="!spinner">
+                          <div class="row no-gutters">
+                              <div class="col-lg-4 col-md-4 col-sm-6 col-12 product" *ngFor="let phone of shopPhones | paginate: config">
+                                <article class="hoproduct"(click)="routeToPhoneDetail(phone?.brandName, phone?.series, phone?.model)">
+                                  <div class="product-title__grid">
+                                    <h5 class="hoproduct-title product-title">
+                                      <a class="product-title__link" href={{phone.phoneUrl}} [ngClass]="{'disable': phone.phoneUrl?.length <= 0}" target="_blank">
+                                        {{phone.brandName+' '+ phone.series+ ' '+  phone.model}}
+                                      </a>
+                                    </h5>
+                                    <div class="product-price">
+                                      <span class="product-price__to">от</span>
+                                      {{phone?.price?.low}} до {{phone?.price?.high}}
+                                    </div>
+                                  </div>
+                                  <div class="hoproduct-image product-image">
+                                      <img class="hoproduct-frontimage product-image__item" src={{phone?.images[0]}} alt="product image" loading="lazy">
+                                  </div>
+
+                                  <div class="hoproduct-content product-view">
+                                    <div class="product-content">
+
+                                      <h5 class="hoproduct-title product-title product-title__list" style="display: none">
+                                          {{phone?.name}}
+                                      </h5>
+                                      <div class="product-color">
+                                        <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of phone?.colors"/>
+                                      </div>
+                                      <div class="product-description">
+                                        <div class="product-description__grid">
+                                          <p class="product-description__grid-text">{{
+                                            phone?.screen + ', '+
+                                            phone?.camera +', ' +
+                                            phone?.video + ', ' +
+                                            phone?.cpu +', '+
+                                            phone?.batary + ', '+
+                                            phone?.weight}}</p>
+                                        </div>
+                                        <div class="product-description__list" style="display: none">
+                                          <p class="product-description__list-text" *ngIf="phone.screen">
+                                            <span class="list-title">Экран:</span> {{phone?.screen}}
+                                          </p>
+                                          <p class="product-description__list-text" *ngIf="phone.camera">
+                                            <span class="list-title">Камера:</span> {{phone.camera}}
+                                          </p>
+                                          <p class="product-description__list-text" *ngIf="phone.video">
+                                            <span class="list-title">Видео:</span> {{phone.video}}
+                                          </p>
+                                          <p class="product-description__list-text" *ngIf="phone.cpu">
+                                            <span class="list-title">Процессор:</span> {{phone.cpu}}
+                                          </p>
+                                          <p class="product-description__list-text" *ngIf="phone.batary">
+                                            <span class="list-title">Аккумулятор:</span> {{phone.batary}}
+                                          </p>
+                                          <p class="product-description__list-text" *ngIf="phone.weight">
+                                            <span class="list-title">Вес:</span>{{phone.weight}}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div class="product-memory">
+                                      <span class="product-memory__item" *ngFor="let memory of phone?.memories">
+                                       {{memory?.memoryStorage}} ГБ
+                                      </span>
+                                      </div>
+                                    </div>
+                                    <div class="product-content product-content__grid" style="display: none">
+                                      <div class="product-compare">
+                                        <div class="product-compare__price">
+                                          <span class="product-compare__price-text">от {{phone?.price?.low}} до {{phone?.price?.high}}</span>
+                                        </div>
+                                        <div class="product-compare__item" *ngFor="let col of phone?.phoneCollection">
+                                          <div class="product-compare__item-block">
+                                            <a class="product-compare__item-link" [ngClass]="{'disable': phone?.phoneUrl?.length <= 0}" target="_blank">{{col?.memory?.memoryStorage}} Гб, ОЗУ {{col?.memory?.ramStorage}} Гб</a>
+                                            <span class="product-compare__item-location"> <span class="location-right">→</span>
+                                            </span>
+                                          </div>
+                                          <a class="product-compare__item-price" [ngClass]="{'disable': phone.phoneUrl?.length <= 0}" target="_blank" >{{col?.price}} c</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </article>
+                              </div>
+                              <div *ngIf="shopPhones?.length === 0" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <!-- Single Product -->
+                                <article class="hoproduct">
+                                  <div class="hoproduct-content">
+                                    <h5 class="hoproduct-title" style="text-align:center;"><a> Ничего не найдено </a></h5>
+                                  </div>
+                                </article>
+                                <!--// Single Product -->
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="cr-pagination pt-30">
+                        <pagination-controls
+                        [autoHide]="true"
+                        [responsive]="true"
+                        (pageChange) = "pageChange($event)"
+                        class="my-pagination"
+                        previousLabel="Предыдущий"
+                        nextLabel="Следующий"></pagination-controls>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--// Shop Page Area -->
+
+  </main>
+  <!--// Page Conttent -->

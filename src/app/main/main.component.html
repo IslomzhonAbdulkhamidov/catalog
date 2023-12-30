@@ -1,0 +1,321 @@
+<div class="banners-area pb-30 bg-grey">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Category Menu -->
+        <div class="catmenu catmenu-2 mt-15">
+          <button class="catmenu-trigger is-active">
+            <span>Телефоны</span>
+          </button>
+          <nav class="catmenu-body">
+            <ul>
+              <li *ngFor="let brand of first8brands">
+                <a (click)="routeToBrands(brand.name)">
+                  <img class="logo" src="/assets/brandSvg/{{brand.name.toLocaleLowerCase()}}.svg" alt="">
+                  {{brand.name}}
+                </a>
+              </li>
+              <li *ngIf="brands.length == 1">
+                <a (click)="routeToBrands(brands[0].name)">
+                  <img class="logo" src="/assets/brandSvg/{{brands[0].name.toLocaleLowerCase()}}.svg" alt="">
+                  {{brands[0].name}}
+                </a>
+              </li>
+              <li *ngIf="brands && brands.length > 1" class="catmenu-dropdown">
+                <a><i class="ion ion-ios-power">Остальные</i></a>
+                <ul class="megamenu catmenu-megamenu">
+                  <li>
+                    <a>Остальные</a>
+                    <ul>
+                      <li *ngFor="let brand of brands">
+                        <a (click)="routeToBrands(brand.name)">
+                          <img class="logo" src="/assets/brandSvg/{{brand.name.toLocaleLowerCase()}}.svg" alt="">
+                          {{brand.name}}
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!--// Category Menu -->
+      </div>
+
+      <div class="col-lg-9">
+          <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+
+        <div class="herobanner herobanner-3 slider-navigation slider-dots mt-15" >
+          
+          <div class="herobanner-single" *ngFor="let banner of sliders" style="display: none;">
+            <img alt="hero image herobanner-image" loading="lazy"
+              src="{{banner.image.length>0 ? banner.image : '/assets//assets/images/hero/hero-image-5.jpg'}}" (loaded) ="switt = true">
+            <div class="herobanner-content">
+              <div class="herobanner-box">
+                <h4>{{banner?.subTopic}}</h4>
+              </div>
+              <div class="herobanner-box">
+                <h1>{{banner?.topic}}</h1>
+              </div>
+              <div class="herobanner-box">
+                <p>{{banner?.littleDescription}}</p>
+              </div>
+              <div class="herobanner-box" *ngIf="banner?.isButtonActive">
+                <a *ngIf="!banner?.newTab" href={{banner?.buttonUrl}} class="ho-button ho-button-white">
+                
+                  <span>Узнать подробнее</span>
+                </a>
+                <a *ngIf="banner?.newTab" target="_blank" href={{banner?.buttonUrl}} class="ho-button ho-button-white">
+                  <span>Перейти</span>
+                </a>
+              </div>
+            </div>
+            <span class="herobanner-progress"></span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--// Banners Area -->
+
+<!-- Page Conttent -->
+<main class="page-content">
+
+  <!-- Categories Area -->
+  <div class="ho-section categories-area mt-30">
+    <div class="container">
+      <div class="section-title">
+        <h3>Магазины</h3>
+      </div>
+      <div class="categories-slider-2 slider-navigation-2 slider-navigation-2-m0">
+
+        <div class="category-wrapper" *ngFor="let shop of shops">
+          <!-- Single Category -->
+          <div class="category" routerLink = "/shop-page/{{shop._id}}">
+            <a class="category-thumb">
+              <img src={{shop.logo}} alt="category image" loading="lazy">
+            </a>
+            <div class="category-content">
+              <h5 class="category-title">{{shop.name}}</h5>
+              <a target="_blank" class="category-productlink" *ngIf="shop.websiteUrl?.length > 0" >Посмотреть<i class="ion ion-md-arrow-dropright"></i></a>
+            </div>
+          </div>
+          <!--// Single Category -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--// Categories Area -->
+
+  <!-- Trending Products Area -->
+<div class="trending-products-area">
+    <div class="container">
+      <div class="section-title">
+        <h3>Популярные гаджеты</h3>
+      </div>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="bstab1-area1" role="tabpanel" aria-labelledby="bstab1-area1-tab">
+          <div class="product-slider trending-products-slider-2 slider-navigation-2">
+
+            <div class="product-slider-col"  *ngIf="trandingProducts[0]?.length > 0">
+
+                <article class="hoproduct" (click)="routeToPhoneDetail(defaultPhone?.brandId, defaultPhone?.series, defaultPhone?.model)" *ngFor="let defaultPhone of trandingProducts[0]">
+                  <div class="product-title__grid">
+                    <h5 class="hoproduct-title product-title">
+                        {{defaultPhone?.brandId + ' ' + defaultPhone?.series + ' ' + defaultPhone?.model }}
+                    </h5>
+                    <div class="product-price">
+                      <span class="product-price__to">от</span>
+                      {{defaultPhone?.price?.low}} до {{defaultPhone?.price?.high}} c
+                    </div>
+                  </div>
+                  <div class="hoproduct-image product-image">
+                      <img class="hoproduct-frontimage product-image__item" src={{defaultPhone.images[0]}} loading="lazy" alt="product image">
+                  </div>
+
+                  <div class="hoproduct-content product-view">
+                    <div class="product-content">
+                      <div class="product-color">
+                        <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of defaultPhone.color"/>
+                      </div>
+                      <div class="product-description">
+                        <div class="product-description__grid">
+                          <div class="product-description__grid-text">
+                            {{defaultPhone?.desc}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="product-memory">
+                      <span class="product-memory__item" *ngFor="let memory of defaultPhone.memory">
+                           {{memory?.memoryStorage}} ГБ
+                      </span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+            </div>
+
+            <div class="product-slider-col" *ngIf="trandingProducts[1]?.length > 0">
+              <article class="hoproduct" (click)="routeToPhoneDetail(defaultPhone?.brandId, defaultPhone?.series, defaultPhone?.model)" *ngFor="let defaultPhone of trandingProducts[1]">
+                <div class="product-title__grid">
+                  <h5 class="hoproduct-title product-title">
+                    {{defaultPhone?.brandId + ' ' + defaultPhone?.series + ' ' + defaultPhone?.model }}
+                  </h5>
+                  <div class="product-price">
+                    <span class="product-price__to">от</span>
+                    {{defaultPhone?.price?.low}} до {{defaultPhone?.price?.high}} c
+                  </div>
+                </div>
+                <div class="hoproduct-image product-image">
+                    <img class="hoproduct-frontimage product-image__item" src={{defaultPhone.images[0]}} loading="lazy" alt="product image">
+                </div>
+
+                <div class="hoproduct-content product-view">
+                  <div class="product-content">
+                    <div class="product-color">
+                      <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of defaultPhone.color"/>
+                    </div>
+                    <div class="product-description">
+                      <div class="product-description__grid">
+                        <div class="product-description__grid-text">
+                          {{defaultPhone?.desc}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-memory">
+                    <span class="product-memory__item" *ngFor="let memory of defaultPhone.memory">
+                       {{memory?.memoryStorage}} ГБ
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="product-slider-col" *ngIf="trandingProducts[2]?.length > 0">
+              <article class="hoproduct" (click)="routeToPhoneDetail(defaultPhone?.brandId, defaultPhone?.series, defaultPhone?.model)" *ngFor="let defaultPhone of trandingProducts[2]">
+                <div class="product-title__grid">
+                  <h5 class="hoproduct-title product-title">
+                    {{defaultPhone?.brandId + ' ' + defaultPhone?.series + ' ' + defaultPhone?.model }}
+                   
+                  </h5>
+                  <div class="product-price">
+                    <span class="product-price__to">от</span>
+                    {{defaultPhone?.price?.low}} до {{defaultPhone?.price?.high}} c
+                  </div>
+                </div>
+                <div class="hoproduct-image product-image">
+                    <img class="hoproduct-frontimage product-image__item" src={{defaultPhone.images[0]}} loading="lazy" alt="product image">
+                </div>
+
+                <div class="hoproduct-content product-view">
+                  <div class="product-content">
+                    <div class="product-color">
+                      <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of defaultPhone.color"/>
+                    </div>
+                    <div class="product-description">
+                      <div class="product-description__grid">
+                        <div class="product-description__grid-text">
+                          {{defaultPhone?.desc}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-memory">
+                    <span class="product-memory__item" *ngFor="let memory of defaultPhone.memory">
+                      {{memory?.memoryStorage}} ГБ
+                    </span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+           </div>
+
+           <div class="product-slider-col" *ngIf="trandingProducts[3]?.length > 0">
+            <article class="hoproduct" (click)="routeToPhoneDetail(defaultPhone?.brandId, defaultPhone?.series, defaultPhone?.model)" *ngFor="let defaultPhone of trandingProducts[3]">
+              <div class="product-title__grid">
+                <h5 class="hoproduct-title product-title">
+                  {{defaultPhone?.brandId + ' ' + defaultPhone?.series + ' ' + defaultPhone?.model }}
+                </h5>
+                <div class="product-price">
+                  <span class="product-price__to">от</span>
+                 {{defaultPhone?.price?.low}} до {{defaultPhone?.price?.high}} c
+                </div>
+              </div>
+              <div class="hoproduct-image product-image">
+                  <img class="hoproduct-frontimage product-image__item" src={{defaultPhone.images[0]}} loading="lazy" alt="product image">
+              </div>
+
+              <div class="hoproduct-content product-view">
+                <div class="product-content">
+                  <div class="product-color">
+                    <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of defaultPhone.color"/>
+                  </div>
+                  <div class="product-description">
+                    <div class="product-description__grid">
+                      <div class="product-description__grid-text">
+                        {{defaultPhone?.desc}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product-memory">
+                  <span class="product-memory__item" *ngFor="let memory of defaultPhone.memory">
+                    {{memory?.memoryStorage}} ГБ
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+         </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--// Trending Products Area -->
+
+  <div class="col-lg-12">
+    <div class="herobanner-banner herobanner-3 slider-navigation mt-30">
+      <div class="herobanner-single" *ngFor="let banner of banners">
+        <div class="banner-area">
+          <div class="container">
+            <div class="imgbanner imgbanner-2 mt-30">
+              <a *ngIf="!banner.isButtonActive">
+                <img src={{banner.bannerUrl}}  loading="lazy" alt="banner">
+              </a>
+              <a *ngIf="banner.isButtonActive && !banner?.newTab" href={{banner?.buttonUrl}}>
+                <img src={{banner.bannerUrl}}  loading="lazy" alt="banner">
+              </a>
+              <a *ngIf="banner.isButtonActive && banner?.newTab" href={{banner?.buttonUrl}} target="_blank">
+                <img src={{banner.bannerUrl}} loading="lazy" alt="banner">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Brand Logo Area -->
+  <div class="ho-section brand-logos-area bg-grey">
+    <div class="container">
+      <div class="brand-logo-slider slider-navigation-3">
+
+        <div class="brandlogo" *ngFor="let brand of first8brands">
+          <a (click)="routeToBrands(brand.name)">
+            <div class="brand-div">
+              <img class="margin-img transform" src="/assets/brandSvg/{{brand.name.toLocaleLowerCase()}}.svg"
+                alt="brand logo" loading="lazy">
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--// Brand Logo Area -->
+</main>

@@ -1,0 +1,70 @@
+.scheme {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+.square {
+  margin: 8px 12px 0;
+  border-radius: 3px;
+  // box-shadow: 0 0 0 7px rgba(0,0,0,0.03), 0 0 0 5px rgba(255,255,255,0.22) inset;
+  transition: all .2s linear;
+  width: 25px;
+  height: 25px;
+  padding: 0 ;
+}
+
+.circle {
+  margin: 6px 10px 0;
+  border-radius: 50%;
+  // box-shadow: 0 0 0 7px rgba(0,0,0,0.03), 0 0 0 5px rgba(255,255,255,0.22) inset;
+  transition: all .2s linear;
+  width: 25px;
+  height: 25px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.relative-show {
+  border: 1px solid blue;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.circle-show {
+  margin: 2px 5px 0;
+  border-radius: 7px;
+  height: 20px;
+  width: 15px !important;
+}
+
+.size { 
+  width: 15%;
+}
+
+.pdetails-singlethumb {
+  height: 100px;
+  display: flex !important;
+  justify-content: center;
+  box-shadow: none;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.product-details-area {
+  display: block;
+    height: 100%;     /* full height of the content box */
+    min-height: 20em; /* Will be AT LEAST 20em tall */
+}
+
+.pdetails-singleimage img {
+  height: 410px;
+  object-fit: cover;
+  margin: 0 auto;
+}

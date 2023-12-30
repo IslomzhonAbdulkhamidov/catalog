@@ -1,0 +1,80 @@
+body {
+  color: #6f8ba4;
+  margin-top: 20px;
+}
+.section {
+  padding: 10px 0;
+  position: relative;
+}
+
+.gray-bg {
+  background-color: #f5f5f5;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+  border-radius: 50%;
+  height: 12rem !important;
+  width: 12rem !important;
+}
+/* About Me
+---------------------*/
+.about-list {
+  padding-top: 10px;
+}
+.about-list label {
+  color: #20247b;
+  font-weight: 600;
+  width: 88px;
+  margin: 0;
+  position: relative;
+}
+.about-list label:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 11px;
+  width: 1px;
+  height: 12px;
+  background: #20247b;
+  -moz-transform: rotate(15deg);
+  -o-transform: rotate(15deg);
+  -ms-transform: rotate(15deg);
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+  margin: auto;
+  opacity: 0.5;
+}
+.about-list p {
+  margin: 0;
+  font-size: 15px;
+}
+
+@media (max-width: 991px) {
+  .about-avatar {
+    margin-top: 30px;
+  }
+}
+
+.about-section .counter {
+  padding: 8px 8px;
+  color: #6f8ba4;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+}
+
+.about-section .counter .count {
+  font-weight: 700;
+  color: #20247b;
+  margin: 0 0 5px;
+}
+
+.footer-widget-title{
+  margin-bottom: 5px  ;
+}
+
+.footer-widget.widget-info ul li {
+  margin-bottom: 5px;
+}

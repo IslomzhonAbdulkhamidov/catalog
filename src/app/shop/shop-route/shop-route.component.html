@@ -1,0 +1,18 @@
+<div class="catmenu catmenu-2 mt-30">
+  <button class="catmenu-trigger is-active">
+    <span>{{currentShop?.name}}</span>
+  </button>
+  <nav class="catmenu-body">
+    <ul>
+      <!-- <li *ngFor="let brand of brands" ><a routerLink = "/shop/list-phones/{{brand._id}}"><i class="ion ion-ios-tablet-landscape"></i>{{brand.name}}</a></li> -->
+      <!-- <li><a routerLink = "/shop" routerLinkActive ='active'><i class="ion ion-ios-man"></i>Профиль</a></li> -->
+      <li><a routerLink = "/shop/list-phones" routerLinkActive ='active'><i class="ion ion-ios-tablet-landscape"></i>Активные телефоны</a></li>
+      <li><a routerLink = "/shop/not-active-phone-list" routerLinkActive ='active'><i class="ion ion-ios-tablet-landscape"></i>Неактивные телефоны</a></li>
+      <li><a routerLink = "/shop/list-default-phones" routerLinkActive = 'active'><i class="ion ion-ios-add"></i>Добавить новый телефон</a></li>
+      <li><a routerLink="/price-editor-shop" routerLinkActive='active'><i class="ion ion-ios-tablet-landscape"></i>Редактировать в Excel</a></li>
+
+      <!-- <li><a><i class="ion ion-md-settings"></i>Settings</a></li> -->
+      <li ><a (click)="logOut()" style="cursor:pointer; color: black"><i class="ion ion-ios-log-out"></i>Выйти</a></li>
+    </ul>
+  </nav>
+</div>

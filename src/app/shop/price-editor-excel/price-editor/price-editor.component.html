@@ -1,0 +1,13 @@
+<div id="shop_price" class="hot"></div>
+<ng-container *ngIf="allModels?.length; else loading">
+    <div style="position: absolute; bottom: 1rem; right: 1rem;">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button class="btn ho-button" style="margin-left: 1rem" type="submit" (click)="savePrice()">
+            <span>Опубликовать</span>
+        </button>
+    </div>
+</ng-container>
+
+<ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+</ng-template>

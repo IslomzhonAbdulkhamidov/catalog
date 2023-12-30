@@ -1,0 +1,141 @@
+<div class="mt-30" *ngIf="banners">
+  <div class="card" style="width: 18rem; display: contents;" *ngFor="let banner of banners">
+    <div class="hiko">
+      <img alt="hero image" src="{{banner?.bannerUrl?.length>0 ? banner.bannerUrl : '/assets/images/banner/banner-image-6.jpg'}}"  loading="lazy">
+      <ul class="hoproduct-actionbox">
+        <li><a class="quickview-trigger" href="#"><i class="lnr lnr-upload"></i><span>Обновить</span> </a></li>
+        <li><a href="#"><i class="lnr lnr-trash"></i><span>Удалить</span></a></li>
+      </ul>
+      <div class="card-body">
+        <div style="display: flex;">
+          <h4>Активен: </h4>
+          <h4>{{banner.isActive ? 'Да' : 'Нет'}}</h4>
+        </div>
+        <div style="display: flex;" >
+          <h4>Добавлен линк: </h4> <h4>{{banner.isButtonActive ? 'Да' : 'Нет'}}</h4>
+          <h4>
+             <a *ngIf="banner.newTab"  href = {{banner.buttonUrl}} target="_blank"> {{banner.buttonUrl}} </a>
+             <a *ngIf="!banner.newTab"  href = {{banner.buttonUrl}}> {{banner.buttonUrl}} </a>
+            </h4>
+        </div>
+        <div style="display: flex;">
+          <div class="herobanner-box">
+            <a class="ho-button ho-button-white" (click)="updateConfirmed(banner)" data-target="#exampleModalCenter"
+              data-toggle="modal"><i class="lnr lnr-pencil"></i><span style="padding-left: 5px;"> Редактировать</span> </a>
+          </div>
+          <div class="herobanner-box" style="padding-left: 2rem;">
+            <a class="ho-button ho-button-white" data-target="#deleteModal"  data-toggle="modal" (click)="deleteBanner(banner)"><i
+                class="lnr lnr-trash"></i><span>Удалить</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class=" d-flex justify-content-center">
+  <a class="ho-button ho-button-white" data-target="#exampleModalCenter" data-toggle="modal">
+    <i class="lnr lnr-cloud-upload" style="padding: 5px;"></i>
+    <span>Добавить новый баннер</span>
+  </a>
+</div>
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="field">
+          <img alt="hero image" src="{{banner.bannerUrl ? banner.bannerUrl : '/assets/images/banner/banner-image-6.jpg'}}"  loading="lazy">
+          <div *ngIf="!banner.bannerUrl" class="control has-icons-left" style="padding-top: 1rem;">
+            <input (change)="uploadFile($event, 'questionImgUrl')" accept=".png,.jpg,.jpeg,.svg" class="input"
+              name="questionImgUrl" placeholder="Выберите картинку" type="file">
+            <span class="icon is-small is-left">
+              <i class="fas fa-image"></i>
+            </span>
+          </div>
+          <button *ngIf="banner.bannerUrl" (click)="resetImgUrl()" class="ho-button ho-button-white"
+            style="padding:1rem;">
+            Удалить картинку<i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <form id="contact-form" action="mail.php" method="POST" class="ho-form contact-form">
+          <div class="ho-form-inner">
+            <div class="single-input d-flex">
+              <!-- <label for="new-review-name">Показать баннер</label> -->
+              <div class="custom-control custom-checkbox">
+                <input [(ngModel)]="banner.isActive" type="checkbox" class="custom-control-input" id="banner-isactive"
+                  name="isActive" />
+                <label class="custom-control-label" for="banner-isactive">Активный*</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input [(ngModel)]="banner.isMain" type="checkbox" class="custom-control-input" id="banner-isMain"
+                  name="isActive" />
+                <label class="custom-control-label" for="banner-isMain">Главный</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input [(ngModel)]="banner.isSingle" type="checkbox" class="custom-control-input" id="banner-istel"
+                  name="isActive" />
+                <label class="custom-control-label" for="banner-istel">Стр. телефона</label>
+              </div>
+            </div>
+            <div class="single-input">
+              <label for="isbuttonActive">Добавить линк</label>
+              <div class="custom-control custom-checkbox">
+                <input [(ngModel)]="banner.isButtonActive" type="checkbox" class="custom-control-input"
+                  id="banner-isbuttonActive" name="isButtonActive" />
+                <label class="custom-control-label" for="banner-isbuttonActive">Активный*</label>
+              </div>
+            </div>
+            <div class="single-input" *ngIf="isbuttonActive">
+              <label for="new-review-name">Линк сайта*</label>
+              <input [(ngModel)]="banner.buttonUrl" id="account-details-email" name="websiteUrl" type="email">
+            </div>
+            <div class="single-input" *ngIf="isbuttonActive">
+              <label for="newtab">Открыт в новом вкладке*</label>
+              <div class="custom-control custom-checkbox">
+                <input [(ngModel)]="banner.newTab" type="checkbox" class="custom-control-input" id="banner-newtab"
+                  name="newTab" />
+                <label class="custom-control-label" for="banner-newtab"> Да открыть в новым окне.</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button *ngIf="!openEditModal" (click)="createNewBanner()" data-dismiss="modal"
+          class="ho-button ho-button-white" type="button">Сохранить</button>
+        <button *ngIf="openEditModal" (click)="updateBanner()" data-dismiss="modal" class="ho-button ho-button-white"
+          type="button">Сохранить изменение</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal For Deleting-->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="deleteModal" role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Подтвердите удаление баннера.</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>При нажатии на кнопку <b>"Удалить"</b> вы без возвратно удалите эту баннера. Если вы не уверены нажмите на кнопку
+          "Отмена".</p>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="deleteConfirm()" data-dismiss="modal" class="ho-button ho-button-white"
+          type="button">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

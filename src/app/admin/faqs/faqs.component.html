@@ -1,0 +1,102 @@
+<div class="mt-30 bg-white" *ngIf="faqs">
+        <div class="myaccount-details">
+          <form class="ho-form">
+            <div class="ho-form-inner">
+                <div class="row">
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <div class="single-input">
+                            <label for="instagram">Instagram</label>
+                            <input [(ngModel)]="faqs.socialNetwork.instagram.url" id="instagram" name="instagram" placeholder="instagram link" type="text"> 
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <div class="single-input">
+                            <label for="facebook">Facebook</label>
+                            <input [(ngModel)]="faqs.socialNetwork.facebook.url"  id="facebook" name="facebook" placeholder="facebook link" type="text">
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <div class="single-input">
+                            <label for="telegram">Telegram</label>
+                            <input [(ngModel)]="faqs.socialNetwork.telegram.url"  id="telegram" name="name" placeholder="telegram link" type="text">
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-3 col-lg-3">
+                        <div class="single-input">
+                            <label for="vk">Vk</label>
+                            <input [(ngModel)]="faqs.socialNetwork.vk.url" id="vk" name="vk" placeholder="vk link" type="text">
+                          </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12">
+                    <div class="float-right">
+                        <button class="ho-button ho-button" type="button"  (click)="update()">Опубликовать</button>
+                    </div>
+                </div>
+            </div>
+   
+          </form>
+        </div>
+</div>
+
+<div class="mt-30 bg-white" *ngIf="faqs">
+        <form class="ho-form">
+            <div class="ho-form-inner">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="single-input">
+                            <label for="admin">Номер телефона администратора</label>
+                            <input [(ngModel)]="faqs.admin.tel" id="admin" name="admin" placeholder="+(996) 555 555 555" type="text"> 
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="float-right">
+                            <button class="ho-button ho-button" type="button"  (click)="update()">Опубликовать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+
+<div class="mt-30 bg-white" *ngIf="faqs">
+    <h4>Наша цель</h4>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <angular-editor [(ngModel)]="faqs.goal.text" [placeholder]="'Наша цель'"></angular-editor>
+        </div>
+        <div class="col-12 col-md-12">
+            <div class="float-right">
+                <button class="ho-button ho-button" type="button"  (click)="update()">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-30 bg-white" *ngIf="faqs">
+    <h4>О проекте</h4>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <angular-editor [(ngModel)]="faqs.about.text" [placeholder]="'Напишите о проекте '"></angular-editor>
+        </div>
+        <div class="col-12 col-md-12">
+            <div class="float-right">
+                <button class="ho-button ho-button" type="button"  (click)="update()">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-30 bg-white" *ngIf="faqs">
+    <h4>Пользовательское соглашение</h4>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <angular-editor [(ngModel)]="faqs.userAgreement.text" [placeholder]="'Пользовательское соглашение'"></angular-editor>
+        </div>
+        <div class="col-12 col-md-12">
+            <div class="float-right">
+                <button class="ho-button ho-button" type="button"  (click)="update()">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+</div>

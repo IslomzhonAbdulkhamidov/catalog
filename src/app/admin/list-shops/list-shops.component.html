@@ -1,0 +1,149 @@
+<div class="col-lg-9">
+  <h4 class="text-center"> Список магазинов</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Магазин</th>
+      <th scope="col">Email</th>
+      <th scope="col">Сайт</th>
+      <th scope="col">Контакты</th>
+      <th scope="col">Активирован</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let shop of shops; let i=index">
+      <th>{{i + 1}}</th>
+      <td style="display: flex;">
+        <span class="shoplogo">
+          <img src="{{shop.logo ? shop.logo : '/assets/images/brandlogo/brand-logo.jpg'}}" alt={{shop.name}}  loading="lazy">
+        </span>
+        {{shop?.name}}</td>
+      <td>{{shop?.email}}</td>
+      <td><a href={{shop?.websiteUrl}} target="_blank">{{shop?.websiteUrl}}</a></td>
+      <td>{{shop?.contact}}</td>
+      <td style="display: flex;">
+        <h5 style="width: 35%;">{{shop.activated ? 'Да' : 'Нет'}}</h5>
+        <div class="dropdown" style="padding-left: 60%;">
+          <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"></path></svg>            <!-- <span>Сохранитьa</span> -->
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="ho-button ho-button-white" (click)="editShopUser(shop)" data-target="#updateModal" data-toggle="modal"><span>Изменить</span> </a>
+            <a class="ho-button ho-button-white" data-target="#deleteModal" data-toggle="modal" (click)="deleteShop(shop._id)"><span>Delete</span> </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="col-lg-9">
+  <h4 class="text-center"> Список Админов</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ФИО</th>
+      <th scope="col">Email</th>
+      <th scope="col">Активирован</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let adm of admins; let i=index">
+      <th>{{i + 1}}</th>
+      <td>{{adm.fullName}}</td>
+      <td>{{adm.email}}</td>
+      <td style="display: flex;">
+        <h5 style="width: 35%;">{{adm.activated ? 'Да' : 'Нет'}}</h5>
+        <div class="dropdown" style="padding-left: 60%;">
+          <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"></path></svg>            <!-- <span>Сохранитьa</span> -->
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="ho-button ho-button-white"  (click)="editAdminUser(adm)" data-target="#updateAdminModal" data-toggle="modal"><span>Изменить</span> </a>
+            <a class="ho-button ho-button-white" data-target="#deleteModal" data-toggle="modal" (click)="deleteAdmin(adm.uid)"><span>Delete</span> </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--  Update Shop status -->
+<div *ngIf="updateConfirmed"  aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade bd-example-modal-lg" id="updateModal"
+  role="dialog" tabindex="-1"> 
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Изменить статус магазина {{shop.name}}</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1"  name="Situacion" [(ngModel)]="shop.activated">
+          <label class="custom-control-label" for="customCheck1">Активировать</label>
+        </div>
+        <angular-editor [(ngModel)]="shop.littleInfo" [placeholder]="'Пользовательское соглашение'"></angular-editor>
+
+        </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="updateShopStatus()" class="ho-button ho-button-white" data-dismiss="modal" type="button">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  Update Shop status -->
+<div *ngIf="updateConfirmed"  aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="updateAdminModal"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Изменить статус админа {{admin.fullName}}</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="adminac"  name="adminactive" [(ngModel)]="admin.activated">
+          <label class="custom-control-label" for="adminac">Активировать</label>
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="updateAdminStatus(admin)" class="ho-button ho-button-white" data-dismiss="modal" type="button">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal For Deleting-->
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="deleteModal" role="dialog"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Подтвердите удаление.</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>При нажатии на кнопку <b>"Удалить"</b> вы без возвратно удалите пользовавателья. Если вы не уверены нажмите на кнопку
+          "Отмена".</p>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="deleteConfirm()" data-dismiss="modal" class="ho-button ho-button-white"
+          type="button">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>

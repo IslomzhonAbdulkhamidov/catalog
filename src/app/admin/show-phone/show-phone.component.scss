@@ -1,0 +1,44 @@
+.select-sortby{
+  // display: flex;
+
+  select{
+    height: 40px;
+    margin: 5px;
+    border-radius: 8px;
+    color: black;
+  }
+}
+
+b, strong {
+  font-weight: bold;
+  padding-left: 11px;
+}
+
+.selectpickerBrand{
+  width: 140px;
+}
+
+.selectpickerSeries{
+  width: 100px;
+}
+
+.hoproduct-image {
+  height: 250px; /* Can be anything */
+  position: relative;
+}
+.hoproduct-frontimage {
+  max-height: 250px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.hoproduct-thumb {
+  height: 250px;
+}

@@ -1,0 +1,400 @@
+<!-- Page Conttent -->
+<main class="page-content">
+  <!-- Product Details Area -->
+  <div class="product-details-area bg-white ptb-30">
+    <div class="container">
+      <div class="pdetails">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="herobanner herobanner-3 slider-navigation slider-dots mt-30"
+              *ngIf="defaultPhone?.images.length > 0">
+              <div class="herobanner-single">
+                <img src="{{ defaultPhone?.images[0] }}" alt="product image"  loading="lazy" />
+              </div>
+              <!--// Herobanner Single -->
+            </div>
+            <!--// Hero Area -->
+          </div>
+          <div class="col-lg-6">
+            <div class="pdetails-content">
+              <div class="pdetails-color">
+                <span *ngIf="defaultPhone?.colors">Цвет:</span>
+                <ul>
+                  <li class="red" *ngFor="let item of defaultPhone?.colors.values;">
+                    <span [style.background-color]="item.hex"></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdetails-allinfo">
+        <ul class="nav pdetails-allinfotab justify-content-center" id="product-details" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="product-details-area1-tab" data-toggle="tab" href="#product-details-area1"
+              role="tab" aria-controls="product-details-area1" aria-selected="true">Характеристика</a>
+          </li>
+          <!-- <li class="nav-item">
+              <a class="nav-link" id="product-details-area2-tab" data-toggle="tab" href="#product-details-area2"
+                role="tab" aria-controls="product-details-area2" aria-selected="false">More
+                Information</a>
+            </li> -->
+        </ul>
+
+        <div class="tab-content" id="product-details-ontent">
+          <div class="tab-pane fade show active" id="product-details-area1" role="tabpanel"
+            aria-labelledby="product-details-area1-tab">
+            <form>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td colspan="2"><strong>Общее</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="display: contents">
+                  <td>Бренд</td>
+                  <!-- formControlName="brandId" -->
+                  <select id="one" class="selectpicker" [(ngModel)]="defaultPhone.brandId"
+                    (change)="newbrand($event.target.value)">
+                    <option [value]="brand._id" *ngFor="let brand of brands" #brand>
+                      {{ brand.name }}
+                    </option>
+                  </select>
+                  <!-- formControlName="series" -->
+                  <select disabled id="two" class="selectpicker" [(ngModel)]="defaultPhone.series">
+                    <option [value]="seri" *ngFor="let seri of brandSeries" #seri>
+                      {{ seri }}
+                    </option>
+                  </select>
+                </tr>
+                <tr>
+                  <td>Модель:</td>
+                  <td>
+                    <input [(ngModel)]="defaultPhone.model" type="text" placeholder="7A" #model (keyup)="(0)" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Год выпуска:</td>
+                  <td>
+                    <input [(ngModel)]="defaultPhone.producedDate" type="text" placeholder="2019" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Операционная система:</td>
+                  <td>
+                    <input [(ngModel)]="defaultPhone.operatingSystem" type="text" placeholder="Andoid 9.0" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Сток:</td>
+                  <td>
+                    <div style="display: flex; width: 100%; flex-wrap: wrap">
+                      <p style="
+                          padding: 5px;
+                          border: 1px solid #3fb0ac;
+                          border-radius: 15px;
+                          margin-left: 5px;"
+                          *ngFor="let item of defaultPhone.producedCountry"
+                          (click)="deleteCountry(defaultPhone.producedCountry, item)">{{ item }}</p>
+                    </div>
+                    <input [(ngModel)]="country" type="text" name="country" />
+                    <div class="relative-buttons">
+                      <button class="btn ho-button ho-button-dark" (click)="addCounty()"
+                        [disabled]="country.length <= 1">+</button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- <tr>
+                      <td>Серия: </td>
+                      <td><input formControlName="series" type="text" placeholder="Mi"></td>
+                    </tr> -->
+                <!-- <tr>
+                  <td>Характеристика:</td>
+                  <div class="single-input">
+                    <label for="new-review-textbox">Характеристика</label>
+                    <textarea formControlName="characteristics" #description (keyup)="(0)" cols="30"
+                      rows="5"></textarea>
+                  </div>
+                </tr> -->
+                <tr>
+                  <td>SIMS</td>
+                  <!-- <div formArrayName="sims" style="margin: 0.75rem">
+                    <div *ngFor="let item of sims.controls; let pointIndex = index" [formGroupName]="pointIndex">
+                      <label>
+                        <input formControlName="name" />
+                      </label>
+                      <button style="margin-left: 0.75rem" class="ho-button" type="button"
+                        (click)="deletesim(pointIndex)">
+                        <i class="lnr lnr-cross" style="padding: 5px; padding-left: 0"></i>
+                      </button>
+                    </div>
+                    <button class="ho-button" type="button" (click)="addsim()">
+                      Add
+                    </button>
+                  </div> -->
+
+                  <div style="display: flex; width: 100%; flex-wrap: wrap">
+                    <p style="
+                        padding: 5px;
+                        border: 1px solid #3fb0ac;
+                        border-radius: 15px;
+                        margin-left: 5px;"
+                        *ngFor="let item of defaultPhone.sims"
+                        (click)="deleteSim(defaultPhone.sims, item)">{{ item }}</p>
+                  </div>
+                  <input [(ngModel)]="sim" type="text" name="sim" />
+                  <div class="relative-buttons">
+                    <button class="btn ho-button ho-button-dark" (click)="addSim()"
+                      [disabled]="sim.length <= 1">+</button>
+                  </div>
+                </tr>
+                <!-- <tr>
+                  <td>Color</td>
+                  <div formArrayName="colors" style="margin: 0.75rem">
+                    <div *ngFor="let item of colors.value; let pointIndex = index" [formGroupName]="pointIndex"
+                      style="display: inline-block; cursor: pointer">
+                      <div (click)="deletecolor(pointIndex)">
+                        <input class="square" formControlName="hex" id="hex" type="color" disabled />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="scheme" *ngFor="let color of dfcolors">
+                    <button (click)="addcolor(color)" data-toggle="tooltip" data-placement="top"
+                      title="{{ color.name }}" class="square" [style.background-color]="color.hex"></button>
+                  </div>
+                </tr>
+                <tr>
+                  <td>Memory</td>
+                  <div formArrayName="memories" style="margin: 0.75rem">
+                    <div *ngFor="
+                        let item of memory.controls;
+                        let pointIndex = index
+                      " [formGroupName]="pointIndex">
+                      <label>
+                        ramStorage: <input formControlName="ramStorage" />
+                      </label>
+                      <label>
+                        memoryStorage: <input formControlName="memoryStorage" />
+                      </label>
+                      <button style="margin-left: 0.15rem" class="ho-button" type="button"
+                        (click)="deleteMemory(pointIndex)">
+                        <i class="lnr lnr-cross" style="padding: 5px; padding-left: 0"></i>
+                      </button>
+                    </div>
+                    <button class="ho-button" type="button" (click)="addMemory()">
+                      Add Memory
+                    </button>
+                  </div>
+                </tr>
+                <tr>
+                  <td>Image</td>
+                  <div formArrayName="images" style="margin: 0.75rem">
+                    <div *ngFor="let image of imagesUrl; let index = index" style="display: inline-block">
+                      <img src="{{ image }}" class="images" (click)="delete(image)" />
+                    </div>
+                    <div *ngFor="
+                        let item of images.controls;
+                        let pointIndex = index
+                      " [formGroupName]="pointIndex">
+                      <label>
+                        <input (change)="uploadFile($event, 'questionImgUrl')" accept=".png,.jpg,.jpeg,.svg"
+                          class="input" name="questionImgUrl" type="file" />
+                      </label>
+                      <button style="margin-left: 0.15rem" class="ho-button" type="button"
+                        (click)="deleteImage(pointIndex)">
+                        <i class="lnr lnr-cross" style="padding: 5px; padding-left: 0"></i>
+                      </button>
+                    </div>
+                    <button class="ho-button" type="button" (click)="addimage()">
+                      Add New
+                    </button>
+                  </div>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>
+                    <div class="single-input">
+                      <label for="new-review-textbox">Description</label>
+                      <textarea formControlName="description" #description (keyup)="(0)" cols="30" rows="5"></textarea>
+                    </div>
+                  </td>
+                </tr> -->
+                <!-- <tr>
+                                          <td>Год выпуска:</td>
+                                          <td><input type="text" placeholder="2019"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Операционная система:</td>
+                                          <td><input type="text" placeholder="Andoid 9.0"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Емкость аккум. (мА·ч):</td>
+                                          <td><input type="text" placeholder="4 000"></td>
+                                      </tr> -->
+              </tbody>
+              <!-- <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Размеры</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Габариты (ШхВхТ, мм):</td>
+                                          <td><input type="text" placeholder="70.4 x 146.3 x 9.6"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Вес (г):</td>
+                                          <td><input type="text" placeholder="165"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Тип процессора:</td>
+                                          <td><input type="text" placeholder="Qualcomm Snapdragon 439"></td>
+                                      </tr>
+                                  </tbody>
+                                  <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Процессор</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Тактовая частота (МГц):</td>
+                                          <td><input type="text" placeholder="2 000"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Количество ядер:</td>
+                                          <td><input type="text" placeholder="8"></td>
+                                      </tr>
+                                  </tbody>
+                                  <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Память</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Оперативная память (Мб):</td>
+                                          <td><input type="text" placeholder="2048"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Встроенная память (Гб):</td>
+                                          <td><input type="text" placeholder="32"></td>
+                                      </tr>
+                                  </tbody> -->
+              <!-- <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Коммуникации</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Телефон:</td>
+                                          <td><input type="text" placeholder="GSM (850, 900, 1800, 1900), LTE (800, 850, 1800, 2100), UMTS (850, 900, 1900,
+                                          2100, 2300, 2500)"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Bluetooth:</td>
+                                          <td><input type="text" placeholder="4.2"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Wi-Fi:</td>
+                                          <td><input type="text" placeholder="802.11 b / g / n / "></td>
+                                      </tr>
+  
+                                  </tbody> -->
+              <!-- <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Мультимедиа</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Размер экрана:</td>
+                                          <td><input type="text" placeholder="5.45"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Разрешение экрана (px):</td>
+                                          <td><input type="text" placeholder="720 x 1440 "></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Тип экрана:</td>
+                                          <td><input type="text" placeholder="IPS"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Видеоускоритель:</td>
+                                          <td><input type="text" placeholder="Adreno 505"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Камера сзади (Мп):</td>
+                                          <td><input type="text" placeholder="13"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Камера спереди (Мп):</td>
+                                          <td><input type="text" placeholder="5"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Динамик:</td>
+                                          <td><input type="text" placeholder="Mono"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Выход наушников:</td>
+                                          <td><input type="text" placeholder="3.5"></td>
+                                      </tr>
+  
+                                  </tbody>
+                                  <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>Расширение</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Карты памяти:</td>
+                                          <td><input type="text" placeholder="256GB"></td>
+                                      </tr>
+                                      <tr>
+                                          <td>Разъемы:</td>
+                                          <td><input type="text" placeholder="Micro USB"></td>
+                                      </tr>
+                                  </tbody>
+                                  <thead>
+                                      <tr>
+                                          <td colspan="2"><strong>SIM карты</strong></td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>Кол-во SIM-карт</td>
+                                          <td><input type="text" placeholder="2"></td>
+                                      </tr>
+                                      <tr>
+                                          <td> SIM-карта</td>
+                                          <td><input type="text" placeholder="2nanoSIM"></td>
+                                      </tr>
+                                  </tbody> -->
+            </table>
+        </form>
+            <div class="d-flex justify-content-center">
+              <a class="ho-button" routerLink="/admin/route/show-all-phone/">
+                <i class="lnr lnr-cross" style="padding: 5px; padding-left: 0"></i>
+                <span>Отмена</span>
+              </a>
+              <a *ngIf="isEditConfirmed" class="ho-button" style="margin-left: 1rem" (click)="updateDefaultPhone()">
+                <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0"></i>
+                <span>Сохранить</span>
+              </a>
+              <a *ngIf="!isEditConfirmed" class="ho-button" style="margin-left: 1rem" (click)="createNewDefaultPhone()">
+                <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0"></i>
+                <span>Сохранить</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

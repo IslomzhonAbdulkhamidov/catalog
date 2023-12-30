@@ -1,0 +1,13 @@
+<div class="pb-30 bg-grey" style="min-height: 36rem;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <app-admin-route></app-admin-route>
+      </div>
+      <div class="col-lg-9">
+        <div *ngIf="admin && !admin.activated"  style="padding:15px;"><h4 class="text-center">Ваше аккаунт еще не активирован, пожалуйста обращайтесь супер админу.</h4></div>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

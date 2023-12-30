@@ -1,0 +1,147 @@
+/*********************************************************************************
+
+	Template Name: Haltico - Mega Store eCommerce Bootstrap 4 Template
+	Description: A perfect template to build beautiful and unique mega store eCommerce websites. It comes with nice and clean design.
+	Version: 3.0
+
+	Note: This is style css.
+
+**********************************************************************************/
+
+/**************************************************************
+
+	STYLESHEET INDEXING
+	|
+	|
+	|___ src/sass/basic Styles
+	|	|
+	|	|___ Reset Styles
+	|	|___ Typography
+	|	|___ Animations
+	|	|___ Utilities
+	|
+	|
+	|___src/sass/elements Styles
+	|	|___ Button
+	|	|___ Section Title
+	|	|___ Social Icons
+	|	|___ Breadcrumb Styles
+	|	|___ Pagination Styles
+	|	|___ Product Styles
+	|	|___ Hero Banner Area
+	|	|___ Banner Styles
+	|	|___ Selectbox
+	|	|___ Featurebox
+	|	|___ Slider src/sass/elements
+	|	|___ Countdown
+	|	|___ Categories
+	|	|___ Brand Logo
+	|	|___ Newsletter
+	|	|___ Minicart
+	|	|___ Category Menu
+	|	|___ Blog Item
+	|	|___ Commentlist
+	|	|___ Form Styles
+	|	|___ Progress Bar
+	|	|___ Team Member
+	|	|___ Shop Widgets
+	|	|___ Blog Widgets
+	|
+	|
+	|___src/sass/blocks Styles
+	|	|___ Header
+	|	|___ Navigation
+	|	|___ Product Slider
+	|	|___ Ourproduct 2
+	|	|___ Product Details
+	|	|___ Quickview Modal
+	|	|___ Shop Page Styles
+	|	|___ Cart Page
+	|	|___ Checkout
+	|	|___ Product Compare
+	|	|___ My Account
+	|	|___ Contact Styles
+	|	|___ About Styles
+	|	|___ Blog Details
+	|	|___ Footer
+	|
+	|
+	|___ END STYLESHEET INDEXING
+
+***************************************************************/
+@import '~handsontable/dist/handsontable.full.css';
+
+@import '~ngx-sharebuttons/themes/circles/circles-dark-theme';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'src/sass/_variables';
+@import 'src/sass/_mixins';
+
+
+/**************************************
+    src/sass/basic Styles
+***************************************/
+@import 'src/sass/basic/_reset';
+@import 'src/sass/basic/_typography';
+@import 'src/sass/basic/_animations';
+@import 'src/sass/basic/_utilities';
+
+
+
+/**************************************
+	src/sass/elements Styles
+***************************************/
+@import 'src/sass/elements/_button';
+@import 'src/sass/elements/_section-title';
+@import 'src/sass/elements/_socialicons';
+@import 'src/sass/elements/_breadcrumb';
+@import 'src/sass/elements/_pagination';
+@import 'src/sass/elements/_product';
+@import 'src/sass/elements/_herobanner';
+@import 'src/sass/elements/_banner';
+@import 'src/sass/elements/_selectbox';
+@import 'src/sass/elements/_featurebox';
+@import 'src/sass/elements/_slider-elements';
+@import 'src/sass/elements/_countdown';
+@import 'src/sass/elements/_categories';
+@import 'src/sass/elements/_brandlogo';
+@import 'src/sass/elements/_newsletter';
+@import 'src/sass/elements/_minicart';
+@import 'src/sass/elements/_category-menu';
+@import 'src/sass/elements/_blogitem';
+@import 'src/sass/elements/_comment';
+@import 'src/sass/elements/_formstyles';
+@import 'src/sass/elements/_progress';
+@import 'src/sass/elements/_team';
+@import 'src/sass/elements/_shop-widgets';
+@import 'src/sass/elements/_blog-widgets';
+
+
+
+/**************************************
+	src/sass/blocks Styles
+***************************************/
+@import 'src/sass/blocks/_header';
+@import 'src/sass/blocks/_navigation';
+@import 'src/sass/blocks/_product-slider';
+@import 'src/sass/blocks/_ourproduct2';
+@import 'src/sass/blocks/_product-details';
+@import 'src/sass/blocks/_quickview-modal';
+@import 'src/sass/blocks/_shop-page';
+@import 'src/sass/blocks/_cart';
+@import 'src/sass/blocks/_checkout';
+@import 'src/sass/blocks/_compare';
+@import 'src/sass/blocks/_myaccount';
+@import 'src/sass/blocks/_contact';
+@import 'src/sass/blocks/_about';
+@import 'src/sass/blocks/_blog-details';
+@import 'src/sass/blocks/_footer';
+
+
+
+/*****************************************/
+/*>>>>>>>>>>>>>>>(THE END)<<<<<<<<<<<<<<<*/
+/*****************************************/
+
+.col-lg-3 {
+    padding-right: 0px !important;
+  }

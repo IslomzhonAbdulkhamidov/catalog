@@ -1,0 +1,157 @@
+<main class="page-content">
+
+  <div class="shop-page-area bg-white ptb-30">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-5 col-md-5">
+          <div class="banner-area">
+            <div class="imgbanner imgbanner-2">
+              <a>
+                <img src={{currentBrand?.logo}} loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-11 order-1 order-lg-2">
+          <div class="shop-filters mt-30">
+            <div class="shop-filters-viewmode">
+              <button [ngClass]="{'is-active': config.view =='grid'}" data-view="grid"><i class="ion ion-ios-keypad"></i></button>
+              <button [ngClass]="{'is-active': config.view =='list'}" data-view="list"><i class="ion ion-ios-list"></i></button>
+            </div>
+            <span class="shop-filters-viewitemcount">Есть {{defaultPhones?.length}} товар(ов)</span>
+            <div class="shop-filters-sort">
+              <select class="form-select shop-filters-sort__select" aria-label="select"  (change)="filterProducts($event.target.value)">
+                <option selected value ='0'>по популярности</option>
+                <option value="1">от дешевых к дорогим</option>
+                <option value="2">от дорогих к дешевым</option>
+                <option value="3">по дате добавления</option>
+              </select>
+            </div>
+          </div>
+
+          <app-loading-spinner *ngIf="spinner"></app-loading-spinner>
+
+          <div class="shop-page-products mt-30" [ngClass]="{'grid-view-active': config.view =='grid','list-view-active': config.view =='list' }" *ngIf="!spinner">
+            <div class="row no-gutters">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-12 product" *ngFor="let dfp of defaultPhones | paginate: config">
+                <article class="hoproduct" (click)="routeToPhoneDetail(currentBrand?.name, dfp?.series, dfp?.model)">
+                  <div class="product-title__grid">
+                    <h5 class="hoproduct-title product-title">
+                      <a class="product-title__link"
+                      (click)="routeToPhoneDetail(currentBrand?.name, dfp?.series, dfp?.model)">{{currentBrand.name + ' ' + dfp?.series+ ' ' + dfp?.model }}
+                        <span class="product-title__link-memory">{{dfp?.price.memory}} ГБ</span>
+                      </a>
+                    </h5>
+                    <div class="product-price">
+                      <span class="product-price__to">от</span>
+                      <a (click)="routeToPhoneDetail(currentBrand?.name, dfp?.series, dfp?.model)" class="product-price__link">
+                        {{dfp?.price?.low}} до {{dfp?.price?.high}} c
+                      </a>
+                    </div>
+                  </div>
+                  <div class="hoproduct-image product-image">
+                    <a class="hoproduct-thumb" (click)="routeToPhoneDetail(currentBrand?.name, dfp?.series, dfp?.model)">
+                      <img class="hoproduct-frontimage product-image__item" src={{dfp?.images[0]}} alt="product image" loading="lazy">
+                    </a>
+                  </div>
+
+                  <div class="hoproduct-content product-view">
+                    <div class="product-content">
+
+                      <h5 class="hoproduct-title product-title product-title__list" style="display: none">
+                        <a class="product-title__link"
+                        (click)="routeToPhoneDetail(currentBrand?.name, dfp?.series, dfp?.model)">{{currentBrand.name + ' ' + dfp?.series+ ' ' + dfp?.model}}
+                          <span class="product-title__link-memory">{{dfp?.price?.memory}} ГБ</span>
+                        </a>
+                      </h5>
+                      <div class="product-color">
+                        <input class='product-color__item' name='color' type='radio'  [style.background-color]="color.hex" *ngFor="let color of dfp.colors"/>
+                      </div>
+                      <div class="product-description">
+                        <div class="product-description__grid">
+                          <div class="product-description__grid-text">{{
+                            dfp?.screen + ', '+
+                            dfp?.camera +', ' +
+                            dfp?.video + ', ' +
+                            dfp?.cpu +', '+
+                            dfp?.batary + ', '+
+                            dfp?.weight}}
+                          </div>
+                        </div>
+                        <div class="product-description__list" style="display: none">
+                          <p class="product-description__list-text" *ngIf="dfp?.screen">
+                            <span class="list-title">Экран:</span> {{dfp?.screen}}
+                          </p>
+                          <p class="product-description__list-text" *ngIf="dfp?.camera">
+                            <span class="list-title">Камера:</span> {{dfp?.camera}}
+                          </p>
+                          <p class="product-description__list-text" *ngIf="dfp?.video">
+                            <span class="list-title">Видео:</span> {{dfp?.video}}
+                          </p>
+                          <p class="product-description__list-text" *ngIf="dfp?.cpu">
+                            <span class="list-title">Процессор:</span> {{dfp?.cpu}}
+                          </p>
+                          <p class="product-description__list-text" *ngIf="dfp?.batary">
+                            <span class="list-title">Аккумулятор:</span> {{dfp?.batary}}
+                          </p>
+                          <p class="product-description__list-text" *ngIf="dfp?.weight">
+                            <span class="list-title">Вес:</span>{{dfp?.weight}}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="product-memory">
+                      <span class="product-memory__item" *ngFor="let memory of dfp.memories">
+                        {{memory?.memoryStorage}} ГБ
+                      </span>
+                      </div>
+                    </div>
+                    <div class="product-content product-content__grid" style="display: none">
+                      <div class="product-compare">
+                        <div class="product-compare__price">
+                          <span class="product-compare__price-text">от {{dfp?.price?.low}} до {{dfp?.price?.high}} c</span>
+                        </div>
+                        <div class="product-compare__item" *ngFor="let shop of dfp?.shops">
+                          <div class="product-compare__item-block">
+                            <a (click)="routeToShopPage(shop?.shop?._id)" class="product-compare__item-link">{{shop?.shop?.name}}</a>
+                            <span class="product-compare__item-location">
+                              ({{shop?.localStorage}}) <span class="location-right">→</span>
+                            </span>
+                          </div>
+                          <a class="product-compare__item-price">
+                            <span class="price-color"></span>{{shop?.price}} c.
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div *ngIf="defaultPhones?.length === 0" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <!-- Single Product -->
+                <article class="hoproduct">
+                  <div class="hoproduct-content">
+                    <h5 class="hoproduct-title" style="text-align:center;"><a> Ничего не найдено </a></h5>
+                  </div>
+                </article>
+                <!--// Single Product -->
+              </div>
+            </div>
+          </div>
+
+          <div class="cr-pagination pt-30">
+            <pagination-controls
+              [autoHide]="true"
+              [responsive]="true"
+              (pageChange)="pageChange($event)"
+              class="my-pagination"
+              previousLabel="Предыдущий"
+              nextLabel="Следующий"></pagination-controls>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

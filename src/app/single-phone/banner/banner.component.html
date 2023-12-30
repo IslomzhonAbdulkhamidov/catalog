@@ -1,0 +1,17 @@
+<div class="herobanner-banner herobanner-3 slider-navigation mt-30">
+    <div class="herobanner-single" *ngFor="let banner of banners">
+    <div class="banner-area">
+        <div class="imgbanner imgbanner-2">
+            <a *ngIf="!banner.isButtonActive">
+            <img src={{banner.bannerUrl}}  loading="lazy" alt="banner">
+            </a>
+            <a *ngIf="banner.isButtonActive && !banner?.newTab" href={{banner?.buttonUrl}}>
+            <img src={{banner.bannerUrl}}  loading="lazy" alt="banner">
+            </a>
+            <a *ngIf="banner.isButtonActive && banner?.newTab" href={{banner?.buttonUrl}} target="_blank">
+            <img src={{banner.bannerUrl}} loading="lazy" alt="banner">
+            </a>
+        </div>
+    </div>
+    </div>
+</div>

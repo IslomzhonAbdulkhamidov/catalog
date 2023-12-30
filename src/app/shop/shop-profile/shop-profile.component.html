@@ -1,0 +1,58 @@
+<section *ngIf="shop" class="section about-section gray-bg" id="about">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-3 col-md-3 col-6 h-100">
+        <div class="about-avatar row justify-content-center align-self-center" style="margin: 5px;">
+          <img alt="" class="img-thumbnail" src="{{shop.logo ? shop.logo : '/assets/images/brandlogo/brand-logo.jpg'}}" title="">
+        </div>
+      </div>
+      <div class="col-lg-9" style="padding-left: 3px; padding-right: 3px;">
+        <div class="float-right">
+          <button [routerLink]="['/shop/edit-profile']" class="ho-button ho-button">
+            <svg class="feather feather-edit btn-icon-prepend" fill="none" height="24" stroke="currentColor" stroke-linecap="round"
+                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Pедактировать профиль
+            </button>
+        </div>
+        <div class="about-text go-to" style="padding-left: 10px;">
+          <div class="footer-widget widget-info">
+            <h3 class="footer-widget-title">{{shop.name}}</h3>
+            <ul>
+              <li *ngIf="shop?.contact"><i class="ion ion-ios-pin"></i>  Телефон :<a href="{{'tel:'+shop.contact}}">{{shop.contact}}</a></li>
+              <li *ngIf="shop?.address"><i class="ion ion-ios-call"></i> Адрес : : {{shop?.address}}</li>
+              <li *ngIf="shop?.websiteUrl"><i class="ion ion-ios-mail"></i> Сайт : <a [href]="shop.websiteUrl">{{shop.websiteUrl}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="counter">
+          <div class="row">
+            <div class="col-4 col-lg-4">
+              <div class="count-data text-center">
+                <h6 class="count h2" data-speed="500" data-to="500">{{count?.allPhones}}</h6>
+                <p class="m-0px font-w-600">Все телефоны</p>
+              </div>
+            </div>
+            <div class="col-4 col-lg-4">
+              <div class="count-data text-center" routerLink = "/shop/list-phones" style="cursor:pointer;">
+                <h6 class="count h2" data-speed="150" data-to="150">{{count?.activePhones}}</h6>
+                <p class="m-0px font-w-600">Активные телефоны</p>
+              </div>
+            </div>
+            <div class="col-4 col-lg-4">
+              <div class="count-data text-center" routerLink = "/shop/not-active-phone-list"  style="cursor:pointer;">
+                <h6 class="count h2" data-speed="850" data-to="850">{{count?.notActivePhones}}</h6>
+                <p class="m-0px font-w-600">Неактивные телефоны</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

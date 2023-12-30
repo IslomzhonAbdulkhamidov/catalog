@@ -1,0 +1,61 @@
+<div class="pb-30 bg-grey" style="min-height: 36rem;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <app-shop-route></app-shop-route>
+      </div>
+      <div class="col-lg-9">
+        <app-shop-profile></app-shop-profile>
+        <div *ngIf="shop" class="tab-pane">
+          <div class="row justify-content-center align-self-center">
+            <div class="col-lg-4">
+              <article class="hoproduct">
+                <div class="hoproduct-image">
+                  <a class="hoproduct-thumb">
+                    <img alt="hero image" src="{{shop.logo ? shop.logo : '/assets/images/brandlogo/brand-logo-1.jpg'}}"  loading="lazy">
+                  </a>
+                  <!-- (change)="uploadFile($event, 'questionImgUrl')" -->
+                  <input (change)="uploadFile($event, 'shopLogo')" accept=".png,.jpg,.jpeg,.svg" class="input" id="uploadfile"
+                         name="shopLogo"
+                         style="display: none;" type="file">
+        
+                  <ul class="hoproduct-actionbox">
+                    <li><a onclick="$('#uploadfile').trigger('click');"><i class="lnr lnr-camera"></i></a></li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="myaccount-details">
+            <form action="#" class="ho-form">
+              <div class="ho-form-inner">
+                <div class="single-input single-input-half">
+                  <label for="account-details-firstname">Названия Магазина*</label>
+                  <input [(ngModel)]="shop.name" id="account-details-firstname" name="name" type="text">
+                </div>
+                <div class="single-input single-input-half">
+                  <label for="account-details-lastname">Номер телефона*</label>
+                  <input [(ngModel)]="shop.contact" id="account-details-lastname" name="contact" type="text">
+                </div>
+                <div class="single-input">
+                  <label for="account-details-email">Линк на сайт*</label>
+                  <input [(ngModel)]="shop.websiteUrl" id="account-details-email" name="websiteUrl" type="email">
+                </div>
+                <div class="single-input">
+                  <label for="account-details-oldpass">Адрес*</label>
+                  <input [(ngModel)]="shop.address" id="account-details-oldpass" name="adresss" type="text">
+                </div>
+                <div class="float-right">
+                  <button class="ho-button ho-button" routerLink = "/shop" type="submit">Отмена</button>
+                  <button (click)="updateShopInfo()" class="ho-button ho-button" type="button">Сохранить</button>
+                </div>
+        
+              </div>
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

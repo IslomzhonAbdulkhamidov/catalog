@@ -1,0 +1,244 @@
+<!-- Page Conttent -->
+<main class="page-content">
+
+
+  <!-- Product Details Area -->
+  <div class="product-details-area bg-white ptb-30">
+    <div class="container">
+
+      <div class="pdetails">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="pdetails-images">
+              <div class="pdetails-largeimages pdetails-imagezoom">
+                <div class="pdetails-singleimage" *ngFor="let image of dfPhone?.images" [attr.data-src]="image">
+                  <img src={{image}} alt="product image"  loading="lazy">
+                </div>
+              </div>
+              <div class="pdetails-thumbs">
+                <div class="pdetails-singlethumb" *ngFor="let image of dfPhone?.images">
+                  <img src={{image}} alt="product thumb"  loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="pdetails-content">
+              <h3>{{dfPhone?.brandId.name  +' '+ dfPhone?.series+' '+ dfPhone?.model}}</h3>
+              <div class="ho-form-inner">
+                <div class="single-input">
+                  <label for="account-details-firstname">Выберите магазин*</label>
+                  <select class="selectpicker" name="sellerId" [(ngModel)]="sellerId">
+                    <!-- <option selected disabled hidden>Choose here</option> -->
+                    <option [value]="shop._id" *ngFor="let shop of allShops">{{shop.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="single-input">
+                  <label for="phoneUrl">Линк c оригинального сайта</label>
+                  <input type="text" id="phoneUrl" name="phoneUrl" [(ngModel)]="newPhone.phoneUrl" />
+                </div>
+                <div class="single-input" style="display: flex;width: 100%; flex-wrap: wrap;" *ngIf="newPhone.phoneCollection || newPhone.phoneCollection?.length >0">
+                  <div class="relative-show" *ngFor="let col of newPhone?.phoneCollection" (click)="deleteCollection(col)" data-toggle="modal"  data-target="#newCollectionModal">
+                    <ul>
+                      <li> Цвет :   
+                      <button 
+                        *ngFor="let color of col?.color"
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="{{ color.name }}" 
+                        class="circle-show"
+                        [style.background-color]="color.hex">
+                      </button>
+                       </li>
+                      <li> Память: {{col?.memory.memoryStorage}} Гб, ОЗУ {{col?.memory?.ramStorage}} Гб</li>
+                      <li> Сток : {{col?.country}}</li>
+                      <li> Цена : {{col?.price}} сом</li>
+                    </ul>
+                  </div>
+                  </div>
+                  <div class="single-input">
+                    <button class="btn ho-button" data-toggle="modal" data-target="#newCollectionModal">Добавить коллекцию</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdetails-allinfo">
+
+        <ul class="nav pdetails-allinfotab justify-content-center" id="product-details" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="product-details-area1-tab" data-toggle="tab" href="#product-details-area1"
+              role="tab" aria-controls="product-details-area1" aria-selected="true">Характеристика</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="product-details-area2-tab" data-toggle="tab" href="#product-details-area2"
+              role="tab" aria-controls="product-details-area2" aria-selected="false">Инфо</a>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="product-details-ontent">
+          <div class="tab-pane fade show active" id="product-details-area1" role="tabpanel"
+            aria-labelledby="product-details-area1-tab">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td colspan="2"><strong>Общее</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="size">Производитель:</td>
+                  <td>
+                    {{ dfPhone?.brandId?.name }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Модель:</td>
+                  <td>{{ dfPhone?.model }}</td>
+                </tr>
+                <tr>
+                  <td>Год выпуска:</td>
+                  <td>{{ dfPhone?.producedDate }}</td>
+                </tr>
+                <tr>
+                  <td>Операционная система:</td>
+                  <td>{{ dfPhone?.operatingSystem }}</td>
+                </tr>
+                <tr>
+                  <td>Процессор:</td>
+                  <td>{{ dfPhone?.cpu }}</td>
+                </tr>
+                <tr>
+                  <td>Габариды (ШxВxТ):</td>
+                  <td>{{ dfPhone?.screen }}</td>
+                </tr>
+                <tr>
+                  <td>Камера:</td>
+                  <td>{{ dfPhone?.camera }}</td>
+                </tr>
+                <tr>
+                  <td>Тип аккумулятора:</td>
+                  <td>{{ dfPhone?.batary }}</td>
+                </tr>
+                <tr>
+                  <td>Вес:</td>
+                  <td>{{ dfPhone?.weight }}</td>
+                </tr>
+                <tr>
+                  <td>Сток:</td>
+                  <td>
+                    <p *ngFor="let item of dfPhone?.producedCountry">
+                      {{ item}}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Серия:</td>
+                  <td>{{ dfPhone?.series }}</td>
+                </tr>
+                <tr>
+                  <td>Характеристика:</td>
+                  <td>
+                    {{ dfPhone?.characteristics }}
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+              <a class="ho-button" routerLink="/shop/list-default-phones">
+                <i class="lnr lnr-cross" style="padding: 5px; padding-left: 0"></i>
+                <span>Отмена</span>
+              </a>
+              <button *ngIf="!editConfirmed" class="btn ho-button" style="margin-left: 1rem" type="submit"
+                (click)="createNewPhone()" >
+                <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0"></i>
+                <span>Опубликовать</span>
+              </button>
+              <button *ngIf="editConfirmed" class="btn ho-button" style="margin-left: 1rem" type="submit"
+                (click)="editPhone(newPhone)">
+                <i class="lnr lnr-thumbs-up" style="padding: 5px; padding-left: 0"></i>
+                <span>Опубликовать</span>
+              </button>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="product-details-area2" role="tabpanel"
+            aria-labelledby="product-details-area2-tab">
+            <div class="pdetails-moreinfo" [innerHTML]="dfPhone?.description">
+             
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--// Product Details Area -->
+</main>
+
+<div  aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="newCollectionModal"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Добавить коллекцию</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="ho-form-inner">
+          <div class="pdetails-color">
+            <div class="single-input" *ngIf="updateConfirmed">
+              <span>Добавленные:</span>
+              <div class="scheme" *ngFor="let color of collection?.color">
+                <button data-toggle="tooltip" data-placement="top" title="{{ color.name }}" class="circle" id = "color-btn"
+                  [style.background-color]="color.hex" (click)="deleteColor(color)"></button>
+              </div>
+            </div>
+              <div class="single-input">
+                <span>Цвет:</span>
+                <div class="scheme" *ngFor="let color of dfPhone?.colors">
+                  <button data-toggle="tooltip" data-placement="top" title="{{ color.name }}" class="square" id = "color-btn"
+                    [style.background-color]="color.hex" (click)="isIn($event, color)"></button>
+                </div>
+              </div>
+          </div>
+          <div class="pdetails-color">
+            <span>Память:</span>
+            <div *ngFor="let stg of dfPhone?.memories;">
+              <input id="storage_{{ stg.memoryStorage }}" [value]="stg" type="radio" name="storage"
+                [(ngModel)]="collection.memory" [checked]=" stg?.memoryStorage == collection.memory?.memoryStorage? true: false" />
+              <label for="storage_{{ stg.memoryStorage }}">
+                {{ stg.memoryStorage }} Гб, ОЗУ {{ stg.ramStorage }} Гб
+              </label>
+            </div>
+          </div>
+          <!-- <div class="pdetails-color">
+            <span>Сток</span>
+            <div *ngFor="let stok of dfPhone?.producedCountry">
+              <input id="sim_{{stok}}" [value]="stok" type="radio" name="simcart" [(ngModel)]="collection.country" />
+              <label for="sim_{{stok}}">
+                {{ stok}}
+              </label>
+            </div>
+          </div> -->
+
+          <div class="single-input">
+            <label for="account-details-firstname">Цена*</label>
+            <input type="text" id="account-details-firstname" name="price" [(ngModel)]="collection.price" />
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="ho-button ho-button-white" data-dismiss="modal" type="button">Отмена</button>
+        <button (click)="addCollection()" class="ho-button ho-button-white" data-dismiss="modal" type="button">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

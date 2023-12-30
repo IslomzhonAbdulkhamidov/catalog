@@ -1,0 +1,22 @@
+<form class="header-searchbox">
+    <mat-chip-list #chipList style="width: 100%;">
+      <input style = "width: 100%;" #autocompleteInput type="text" placeholder="Начните искать свой гаджет тут..." aria-label="Number"
+        [formControl]="myControl" [matAutocomplete]="auto" (keyup)="onSearchChange()">
+        <button type="submit" (click)="onSearch(text)" [disabled]="text.length === 0">
+          <i class="lnr lnr-magnifier"></i>
+        </button>
+
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <span *ngIf="text.length >= 1 && searchResultList?.length === 0"> 
+           <mat-option>
+            Ничего не найдено. Попробуйте написать на латыни
+          </mat-option>
+        </span>
+        <mat-option *ngFor="let searchResult of searchResultList" [value]="searchResult"
+                    (onSelectionChange)="findAndRoute($event)">
+                    {{searchResult?.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-chip-list>
+
+</form>

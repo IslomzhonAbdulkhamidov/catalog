@@ -1,0 +1,14 @@
+<div class="pb-30 bg-grey" style="min-height: 36rem;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <app-shop-route></app-shop-route>
+      </div>
+      <div class="col-lg-9" style="padding-right: 0px; padding-left: 0px;">
+        <app-shop-profile></app-shop-profile>
+        <div *ngIf="shop && !shop.activated"><h5> Ваше аккаунт еще не активировано, пожалуйста, обратитесь к администратору.</h5></div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

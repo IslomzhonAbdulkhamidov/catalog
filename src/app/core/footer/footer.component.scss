@@ -1,0 +1,106 @@
+.footer-toparea {
+  padding-top: 25px;
+  padding-bottom: 0px;
+}
+.footer-widget {
+  margin-top: 30px;
+}
+.footer-widget ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.footer-widget ul li {
+  list-style: none;
+}
+.footer-widget-title {
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+.footer-widget.widget-info {
+  letter-spacing: 0.4px;
+}
+.footer-widget.widget-info ul li {
+  color: #454545;
+  margin-bottom: 10px;
+}
+.footer-widget.widget-info ul li i {
+  color: #0b88ee;
+  padding-right: 10px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.footer-widget.widget-info ul li a {
+  color: #0b88ee;
+}
+.footer-widget.widget-info ul li a:hover {
+  text-decoration: underline;
+}
+.footer-widget.widget-links ul li a {
+  display: block;
+  margin-bottom: 10px;
+  color: #7e7e7e;
+}
+.footer-widget.widget-links ul li a:hover {
+  color: #0b88ee;
+  padding-left: 15px;
+}
+.footer-widget.widget-customerservice {
+  background: #454545;
+  text-align: center;
+  padding: 35px 20px;
+  border-radius: 7px;
+}
+.footer-widget.widget-customerservice .footer-widget-title {
+  color: #fff;
+  margin-bottom: 5px;
+}
+.footer-widget.widget-customerservice .info {
+  padding-bottom: 15px;
+}
+.footer-widget.widget-customerservice .info h2,
+.footer-widget.widget-customerservice .info h3,
+.footer-widget.widget-customerservice .info h4,
+.footer-widget.widget-customerservice .info h5,
+.footer-widget.widget-customerservice .info h6 {
+  color: #a5a5a5;
+  margin-bottom: 5px;
+}
+.footer-widget.widget-customerservice .info h2 a,
+.footer-widget.widget-customerservice .info h3 a,
+.footer-widget.widget-customerservice .info h4 a,
+.footer-widget.widget-customerservice .info h5 a,
+.footer-widget.widget-customerservice .info h6 a {
+  color: #ffe11b;
+}
+.footer-widget.widget-customerservice .payment {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer-widget.widget-customerservice .payment h6 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+.footer-copyright {
+  border-top: 1px solid #e5e5e5;
+  padding: 20px 0;
+}
+.footer-copyright .copyright {
+  margin-bottom: 0;
+}
+.footer-copyright .copyright a {
+  color: #0b88ee;
+  font-weight: 500;
+}
+.logo {
+  height: 17px;
+  color: grey;
+  margin-top: 14px;
+}
+
+@media only screen and (max-width: 775px) {
+  .logo {
+    height: 14px;
+    margin-top: 11px;
+  }
+}

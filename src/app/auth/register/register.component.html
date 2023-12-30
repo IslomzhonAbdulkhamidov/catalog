@@ -1,0 +1,63 @@
+<div class="my-account-area ptb-30">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <!-- Register Form -->
+      <div class="col-lg-6 mt-30 mt-lg-0">
+        <div class="login-form-wrapper">
+          <form action="#" class="ho-form ho-form-boxed">
+            <h4 class="text-center">Регистрация для супер админа</h4>
+
+            <div class="ho-form-inner">
+              <div class="single-input">
+                <label for="register-form-name">Имя</label>
+                <input [(ngModel)]="fullName" class="form-control" id="fullName" name="fullName" 
+                  type="text">
+              </div>
+              <div class="single-input">
+                <label for="register-form-email">Адрес электронной почты</label>
+                <input [(ngModel)]="email" class="form-control" id="inputEmail" name="emailAddress"
+                   type="email">
+              </div>
+              <div class="single-input">
+                <label for="register-form-password">Пароль</label>
+                <input [(ngModel)]="password" class="form-control" id="inputPassword" name="password"
+                   type="password">
+              </div>
+              <div class="single-input">
+                <button (click)="register()" type="submit" class="ho-button ho-button-dark"  data-toggle="modal" data-target="#reloadingSpinner" [disabled]="!isFormValid">
+                  <span>Зарегистрироватся</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Loading Spinner-->
+<div *ngIf="loadSpin" class="modal fade" data-backdrop="static" data-keyboard="false" id="reloadingSpinner" tabindex="-1" role="dialog" aria-labelledby="reloadingSpinner" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div *ngIf="!err" >
+        <app-loading-spinner *ngIf="loadSpin"></app-loading-spinner>
+        <a #closeModal class="text-white" data-dismiss="modal" aria-label="Close" (click)="hideModel();">
+          <i class="ti-close"></i>
+        </a>
+      </div>
+      <div *ngIf="err" >
+        <div class="modal-header">
+          <h5 class="modal-title" style="color: red;">Ошибка</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4>{{errorMessage}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

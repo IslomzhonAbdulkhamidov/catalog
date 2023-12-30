@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "katalog-kg": {
+      "hosting": {
+        "Katalog": [
+          "katalog-kg"
+        ]
+      }
+    }
+  }
+}

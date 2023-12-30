@@ -1,0 +1,21 @@
+<div *ngIf="admin" class="tab-pane">
+  <div class="myaccount-details">
+    <form action="#" class="ho-form">
+      <div class="ho-form-inner">
+        <div class="single-input single-input-half">
+          <label for="account-details-firstname">ФИО*</label>
+          <input [(ngModel)]="admin.fullName" id="account-details-firstname" name="name" type="text">
+        </div>
+        <div class="single-input single-input-half">
+          <label for="account-details-lastname">Номер телефона*</label>
+          <input [(ngModel)]="admin.contact" id="account-details-lastname" name="contact" type="text">
+        </div>
+        <div class="float-right">
+          <button class="ho-button ho-button" routerLink = "/admin/route/list-shops" type="submit">Отмена</button>
+          <button (click)="updateAdminInfo()" class="ho-button ho-button" type="button">Сохранить</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

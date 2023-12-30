@@ -1,0 +1,16 @@
+@media all and (min-width: 990px) {
+    .row {
+        padding: 13px
+    }
+}
+
+.row {
+    padding: 5px;
+}
+
+@media all and (max-width: 990px) {
+    .col-12, .col-md-12, .col-lg-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}

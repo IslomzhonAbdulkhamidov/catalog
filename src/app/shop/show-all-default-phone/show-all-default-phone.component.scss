@@ -1,0 +1,62 @@
+.col-lg-6{
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.scheme {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0;
+  text-align: center;
+}
+
+.square {
+  margin: 10px 15px 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 7px rgba(0,0,0,0.03), 0 0 0 5px rgba(255,255,255,0.22) inset;
+  transition: all .2s linear;
+  width: 35px;
+  height: 35px;
+}
+
+.circle {
+  margin: 10px 15px 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 7px rgba(0,0,0,0.03), 0 0 0 5px rgba(255,255,255,0.22) inset;
+  transition: all .2s linear;
+  width: 45px;
+  height: 45px;
+}
+
+.radiotext {
+  margin: 10px 10px 0px 0px;
+}
+
+.select-sortby{
+  // display: flex;
+
+  select{
+    height: 40px;
+    margin: 5px;
+    border-radius: 8px;
+    color: black;
+  }
+}
+
+b, strong {
+  font-weight: bold;
+  padding-left: 11px;
+}
+
+.selectpickerBrand{
+  width: 140px;
+}
+
+.selectpickerSeries{
+  width: 100px;
+}
+
+.hoproduct-frontimage{
+  height: 250px;
+  max-height: 350px;
+}
